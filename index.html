@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>이벤트 문의 분류기</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>이벤트 문의 분류기</h1>
+    <p class="sub">규칙으로만 도는 기준선 · AI 없음</p>
+  </header>
+
+  <div id="status" class="status" role="status"></div>
+
+  <nav class="tabs" role="tablist">
+    <button id="tabbtn-classify" role="tab" aria-selected="true" aria-controls="tab-classify">분류</button>
+    <button id="tabbtn-score" role="tab" aria-selected="false" aria-controls="tab-score">채점</button>
+  </nav>
+
+  <main>
+    <section id="tab-classify" role="tabpanel">
+      <label for="input">문의 문장 한 줄</label>
+      <textarea id="input" rows="3" placeholder="예: 결제가 두 번 됐어요. 환불해 주세요."></textarea>
+      <button id="run" class="primary" disabled>분류</button>
+
+      <div id="result" class="card" hidden>
+        <dl>
+          <dt>가린 문장</dt><dd id="r-masked"></dd>
+          <dt>칸</dt><dd id="r-cat" class="big"></dd>
+          <dt>긴급도</dt><dd id="r-urg" class="big"></dd>
+          <dt>감정</dt><dd id="r-emo" class="big"></dd>
+          <dt>이유</dt><dd id="r-reason"></dd>
+          <dt>판정한 쪽</dt><dd id="r-src"></dd>
+        </dl>
+        <p id="r-note" class="note" hidden></p>
+      </div>
+
+      <details id="kwbox">
+        <summary>규칙이 쓰는 낱말과 뽑은 연습 문장</summary>
+        <div id="kwlist"></div>
+      </details>
+    </section>
+
+    <section id="tab-score" role="tabpanel" hidden>
+      <p class="hint">data/answer.json 의 정답과 판정을 견줍니다. 가린 문장으로 가릅니다.</p>
+      <button id="score" class="primary" disabled>규칙으로 채점</button>
+      <button id="ai-score" class="primary second" disabled>AI로 채점</button>
+      <p id="scoreprog" class="prog" role="status"></p>
+      <div id="scoreout"></div>
+    </section>
+  </main>
+
+  <script src="mask.js"></script>
+  <script src="rules.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
